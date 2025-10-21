@@ -3,6 +3,7 @@ from openai import OpenAI
 import pandas as pd
 import plotly.express as px
 from datetime import datetime
+import random
 
 # Initialize OpenAI client
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
