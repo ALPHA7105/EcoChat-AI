@@ -1,3 +1,4 @@
+/*
 :root {
   --primary-color: #6c5ce7;
   --secondary-color: #a29bfe;
@@ -231,7 +232,7 @@ body {
   transform: scale(0.95);
 }
 
-/* Markdown styling */
+
 .message-content h1, .message-content h2, .message-content h3 {
   margin-top: 16px;
   margin-bottom: 8px;
@@ -287,7 +288,7 @@ body {
   }
 }
 
-/* For mobile */
+
 @media (max-width: 768px) {
   .app-container {
       padding: 10px;
@@ -297,3 +298,4 @@ body {
       max-width: 90%;
   }
 }
+*/
