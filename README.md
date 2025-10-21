@@ -1,1 +1,1 @@
-# Nova
+# EcoChat AI
