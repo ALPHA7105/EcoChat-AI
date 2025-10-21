@@ -28,37 +28,37 @@ st.sidebar.info(st.session_state.eco_tip)
 tab1, tab2 = st.tabs(["💬 Chat", "📊 Dashboard"])
 
 # --- CHAT TAB ---
+# --- CHAT TAB ---
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
+if "user_input" not in st.session_state:
+    st.session_state.user_input = ""
+
 with tab1:
-    user_input = st.text_input("Ask EcoBot about sustainability:", "")
+    user_input = st.text_input(
+        "Ask EcoBot about sustainability:",
+        value=st.session_state.user_input,
+        key="user_input"
+    )
     
-    if "user_input" not in st.session_state:
-        st.session_state.user_input = ""
-
-    st.session_state.user_input = st.text_input(
-        "Ask EcoBot about sustainability:", 
-        value=st.session_state.user_input
-    )
-
-    user_input = st.session_state.user_input
+    if user_input:
+        st.session_state.chat_history.append({"role": "user", "content": user_input})
         
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {"role": "system", "content": "You are EcoBot, a friendly AI helping the school become more sustainable."},
-            {"role": "user", "content": user_input}
-        ]
-    )
-    reply = response.choices[0].message.content
-    st.session_state.chat_history.append({"role": "assistant", "content": reply})
-    st.markdown(f"**EcoBot:** {reply}")
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are EcoBot, a friendly AI helping the school become more sustainable."},
+                {"role": "user", "content": user_input}
+            ]
+        )
+        reply = response.choices[0].message.content
+        st.session_state.chat_history.append({"role": "assistant", "content": reply})
+        st.markdown(f"**EcoBot:** {reply}")
         
-    # Log to CSV
-    with open("chat_log.csv", "a") as f:
-        f.write(f"{datetime.now()},{user_input},{reply}\n")
-
+        # Log to CSV
+        with open("chat_log.csv", "a") as f:
+            f.write(f"{datetime.now()},{user_input},{reply}\n")
 # --- DASHBOARD TAB ---
 with tab2:
     st.subheader("📈 School Eco Data (Mock)")
