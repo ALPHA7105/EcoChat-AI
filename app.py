@@ -13,8 +13,6 @@ st.title("🌱 EcoBot — Your School Sustainability Assistant")
 
 print(st.secrets["OPENAI_API_KEY"][:8] + "...")
 
-"""
-
 # Sidebar with daily tip
 print("Initializing eco_tip...")
 if "eco_tip" not in st.session_state:
@@ -89,5 +87,3 @@ with tab2:
         st.success("🧠 EcoBot Suggests: " + suggestion.choices[0].message.content)
     except Exception as e:
         st.error(f"Error fetching EcoBot suggestion: {e}")
-
-"""
