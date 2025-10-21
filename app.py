@@ -34,8 +34,8 @@ with tab1:
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
-                {"role": "system", "content": "You are EcoBot, a friendly AI helping Dunes International School become more sustainable and efficient."},
-                *st.session_state.messages
+                {"role": "system", "content": "You are EcoBot, a friendly sustainability assistant."},
+                {"role": "user", "content": suggestion_prompt}
             ]
         )
         reply = response.choices[0].message.content
