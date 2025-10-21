@@ -59,9 +59,17 @@ with tab2:
     st.plotly_chart(fig)
 
     # Add AI-generated suggestion
-    suggestion_prompt = f"The school's paper usage data is as follows: {data.to_dict()}. Suggest one sustainability improvement."
+    # Always create a fresh messages list for this call
+    dashboard_prompt = f"The school's paper usage data is as follows: Jan=250kg, Feb=230kg, Mar=220kg, Apr=200kg, May=210kg, Jun=190kg. Suggest one sustainability improvement."
+
+    dashboard_messages = [
+        {"role": "system", "content": "You are EcoBot, a friendly sustainability assistant."},
+        {"role": "user", "content": dashboard_prompt}
+    ]
+
     suggestion = client.chat.completions.create(
         model="gpt-4o-mini",
-        messages=messages
+        messages=dashboard_messages
     )
+
     st.success("🧠 EcoBot Suggests: " + suggestion.choices[0].message.content)
