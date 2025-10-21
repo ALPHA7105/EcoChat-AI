@@ -89,3 +89,5 @@ with tab2:
         st.success("🧠 EcoBot Suggests: " + suggestion.choices[0].message.content)
     except Exception as e:
         st.error(f"Error fetching EcoBot suggestion: {e}")
+
+"""
