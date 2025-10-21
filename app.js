@@ -1,3 +1,4 @@
+/*
 // Initialize marked with options for syntax highlighting
 marked.setOptions({
   highlight: function(code, language) {
@@ -180,3 +181,4 @@ What would you like to know today?`;
   
   appendMessage('bot', welcomeMessage, true);
 });
+*/
