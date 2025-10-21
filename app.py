@@ -11,6 +11,10 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 st.set_page_config(page_title="EcoBot", page_icon="🌿")
 st.title("🌱 EcoBot — Your School Sustainability Assistant")
 
+print(st.secrets["OPENAI_API_KEY"][:8] + "...")
+
+"""
+
 # Sidebar with daily tip
 print("Initializing eco_tip...")
 if "eco_tip" not in st.session_state:
