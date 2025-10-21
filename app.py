@@ -62,6 +62,6 @@ with tab2:
     suggestion_prompt = f"The school's paper usage data is as follows: {data.to_dict()}. Suggest one sustainability improvement."
     suggestion = client.chat.completions.create(
         model="gpt-4o-mini",
-        messages=[{"role": "system", "content": suggestion_prompt}]
+        messages=messages
     )
     st.success("🧠 EcoBot Suggests: " + suggestion.choices[0].message.content)
