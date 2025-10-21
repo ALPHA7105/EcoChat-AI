@@ -5,7 +5,6 @@ import plotly.express as px
 from datetime import datetime
 
 # Initialize OpenAI client
-OPENAI_API_KEY = "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"
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 # Title
