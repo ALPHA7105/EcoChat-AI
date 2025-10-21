@@ -33,8 +33,15 @@ if "chat_history" not in st.session_state:
 with tab1:
     user_input = st.text_input("Ask EcoBot about sustainability:", "")
     
-    if user_input:
-        st.session_state.chat_history.append({"role": "user", "content": user_input})
+    if "user_input" not in st.session_state:
+        st.session_state.user_input = ""
+
+    st.session_state.user_input = st.text_input(
+        "Ask EcoBot about sustainability:", 
+        value=st.session_state.user_input
+    )
+
+    user_input = st.session_state.user_input
         
         response = client.chat.completions.create(
             model="gpt-4o-mini",
