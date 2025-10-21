@@ -12,6 +12,7 @@ st.set_page_config(page_title="EcoBot", page_icon="🌿")
 st.title("🌱 EcoBot — Your School Sustainability Assistant")
 
 # Sidebar with daily tip
+'''
 if "eco_tip" not in st.session_state:
     st.session_state.eco_tip = random.choice([
         "💧 Turn off taps tightly after use",
@@ -22,6 +23,7 @@ if "eco_tip" not in st.session_state:
 
 st.sidebar.header("Eco Tip of the Day")
 st.sidebar.info(st.session_state.eco_tip)
+'''
 
 # Tabs
 tab1, tab2 = st.tabs(["💬 Chat", "📊 Dashboard"])
