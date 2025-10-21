@@ -44,20 +44,20 @@ with tab1:
 
     user_input = st.session_state.user_input
         
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {"role": "system", "content": "You are EcoBot, a friendly AI helping the school become more sustainable."},
-                {"role": "user", "content": user_input}
-            ]
-        )
-        reply = response.choices[0].message.content
-        st.session_state.chat_history.append({"role": "assistant", "content": reply})
-        st.markdown(f"**EcoBot:** {reply}")
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": "You are EcoBot, a friendly AI helping the school become more sustainable."},
+            {"role": "user", "content": user_input}
+        ]
+    )
+    reply = response.choices[0].message.content
+    st.session_state.chat_history.append({"role": "assistant", "content": reply})
+    st.markdown(f"**EcoBot:** {reply}")
         
-        # Log to CSV
-        with open("chat_log.csv", "a") as f:
-            f.write(f"{datetime.now()},{user_input},{reply}\n")
+    # Log to CSV
+    with open("chat_log.csv", "a") as f:
+        f.write(f"{datetime.now()},{user_input},{reply}\n")
 
 # --- DASHBOARD TAB ---
 with tab2:
