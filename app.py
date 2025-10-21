@@ -7,43 +7,43 @@ from datetime import datetime
 # Initialize OpenAI client
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-# Title
 st.set_page_config(page_title="EcoBot", page_icon="🌿")
-st.title("🌿 EcoBot — Your School’s Sustainability Assistant")
+st.title("🌱 EcoBot — Your School Sustainability Assistant")
 
-# Sidebar
-st.sidebar.header("Eco Insights")
-st.sidebar.info("💡 Tip of the Day: Turn off lights when leaving a classroom!")
+# Sidebar with daily tip
+st.sidebar.header("Eco Tip of the Day")
+tips = [
+    "💧 Turn off taps tightly after use",
+    "🌿 Bring reusable bottles instead of plastic ones",
+    "💡 Use natural light whenever possible",
+    "📄 Print double-sided to save paper"
+]
+st.sidebar.info(random.choice(tips))
 
-# Tabs for Chat and Dashboard
+# Tabs
 tab1, tab2 = st.tabs(["💬 Chat", "📊 Dashboard"])
 
-# Initialize session history
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
 # --- CHAT TAB ---
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
+
 with tab1:
-    st.subheader("Ask EcoBot Anything!")
-    user_input = st.text_input("You:", "")
-
+    user_input = st.text_input("Ask EcoBot about sustainability:", "")
+    
     if user_input:
-        st.session_state.messages.append({"role": "user", "content": user_input})
-
-        # Send message to OpenAI
+        st.session_state.chat_history.append({"role": "user", "content": user_input})
+        
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
-                {"role": "system", "content": "You are EcoBot, a friendly sustainability assistant."},
-                {"role": "user", "content": suggestion_prompt}
+                {"role": "system", "content": "You are EcoBot, a friendly AI helping the school become more sustainable."},
+                {"role": "user", "content": user_input}
             ]
         )
         reply = response.choices[0].message.content
-        st.session_state.messages.append({"role": "assistant", "content": reply})
-
-        # Display
+        st.session_state.chat_history.append({"role": "assistant", "content": reply})
         st.markdown(f"**EcoBot:** {reply}")
-
+        
         # Log to CSV
         with open("chat_log.csv", "a") as f:
             f.write(f"{datetime.now()},{user_input},{reply}\n")
@@ -58,18 +58,19 @@ with tab2:
     fig = px.line(data, x="Month", y="Paper Usage (kg)", title="Paper Usage Trend")
     st.plotly_chart(fig)
 
-    # Simplified text version of data
-    dashboard_prompt = "School paper usage: Jan=250kg, Feb=230kg, Mar=220kg, Apr=200kg, May=210kg, Jun=190kg. Suggest one eco-friendly improvement."
-
+    # AI suggestion (simplified text)
+    dashboard_prompt = "The school's paper usage for 6 months: Jan=250kg, Feb=230kg, Mar=220kg, Apr=200kg, May=210kg, Jun=190kg. Suggest one simple eco-friendly improvement."
+    
     dashboard_messages = [
         {"role": "system", "content": "You are EcoBot, a friendly sustainability assistant."},
         {"role": "user", "content": dashboard_prompt}
     ]
-
-    suggestion = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=dashboard_messages
-    )
-    st.success("🧠 EcoBot Suggests: " + suggestion.choices[0].message.content)
-
-    st.success("🧠 EcoBot Suggests: " + suggestion.choices[0].message.content)
+    
+    try:
+        suggestion = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=dashboard_messages
+        )
+        st.success("🧠 EcoBot Suggests: " + suggestion.choices[0].message.content)
+    except Exception as e:
+        st.error(f"Error fetching EcoBot suggestion: {e}")
