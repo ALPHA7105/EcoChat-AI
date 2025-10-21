@@ -20,10 +20,10 @@ if "eco_tip" not in st.session_state:
         "💡 Use natural light whenever possible",
         "📄 Print double-sided to save paper"
     ])
-
+'''
+st.session_state.eco_tip="💧 Turn off taps tightly after use"
 st.sidebar.header("Eco Tip of the Day")
 st.sidebar.info(st.session_state.eco_tip)
-'''
 
 # Tabs
 tab1, tab2 = st.tabs(["💬 Chat", "📊 Dashboard"])
